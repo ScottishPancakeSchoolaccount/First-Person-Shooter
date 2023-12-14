@@ -7,33 +7,57 @@ public class HealthBar : MonoBehaviour
 {
     private float health;
     private float lerpTimer;
+    [Header("Health Bar")]
     public float maxHealth = 100f;
     public float chipSpeed = 2f;
     public Image frontHealthBar;
     public Image backHealthBar;
-    // Start is called before the first frame update
+
+    [Header("Damage Overlay")]
+    public Image overlay; //out DamageOverlay GameObject
+    public float duration; //how long the image stays fully opqaque
+    public float fadeSpeed; //how quickly the image will fade
+
+    private float durationTimer; //timer to check against the duration
     void Start()
     {
         health = maxHealth;
+        overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+       
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthUI();
-        if (Input.GetKeyDown(KeyCode.A))
+        if(overlay.color.a > 0)
         {
-            TakeDamage(Random.Range(5, 10));
+            if (health < 30)
+                return;
+            durationTimer += Time.deltaTime;
+            if (durationTimer > duration)
+            {
+                //fade the image
+                float tempAlpha = overlay.color.a;
+                tempAlpha -= Time.deltaTime * fadeSpeed;
+                overlay.color = new Color(overlay.color.r,overlay.color.g,overlay.color.b, tempAlpha);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            RestoreHealth(Random.Range(5, 10));
-        }
+
+        //This is meant to check if the chip speed worked <3
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    TakeDamage(Random.Range(5, 10));
+        //}
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    RestoreHealth(Random.Range(5, 10));
+        //}
     }
     public void UpdateHealthUI()
     {
-        Debug.Log(health);
         float fillF = frontHealthBar.fillAmount;
         float fillB = backHealthBar.fillAmount;
         float hFraction = health / maxHealth;
@@ -60,6 +84,9 @@ public class HealthBar : MonoBehaviour
     {
         health -= damage;
         lerpTimer = 0f;
+        durationTimer = 0;
+        overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 1);
+
     }
     public void RestoreHealth(float healAmount)
     {

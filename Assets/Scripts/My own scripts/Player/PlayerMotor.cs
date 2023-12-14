@@ -15,6 +15,7 @@ public class PlayerMotor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>();
     }
 
@@ -42,7 +43,6 @@ public class PlayerMotor : MonoBehaviour
         if (IsGrounded && playerVelocity.y <0)
             playerVelocity.y = -2f;
         controller.Move(playerVelocity * Time.deltaTime);
-        Debug.Log(playerVelocity.y);
     }
     public void Jump()
     {
