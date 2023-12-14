@@ -20,12 +20,12 @@ public class EnemyInteractable : Interactable
         }
     }
 
-    public void BaseInteract()
-    {
-        // Implement enemy-specific interaction logic if needed
-        // This could include things like attacking the player or other behaviors
-        base.BaseInteract();
-    }
+    //public void BaseInteract()
+    //{
+    //    // Implement enemy-specific interaction logic if needed
+    //    // This could include things like attacking the player or other behaviors
+    //    base.BaseInteract();
+    //}
 
     public void TakeDamage(int damageAmount)
     {

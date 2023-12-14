@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class EnemyAttack : MonoBehaviour
 {
     // Variables
-    public Material lowHealthMaterial;
+   // public Material lowHealthMaterial;
     private EnemyHealth enemyHealth;
 
     private EnemyMovement enemyMovement;
@@ -44,46 +45,37 @@ public class EnemyAttack : MonoBehaviour
 
         if (distanceToPlayer <= spotRange)
         {
-            int currentHealth = enemyHealth.GetHealth();
-
-            if (currentHealth <=10) // Assuming 30% is the threshold for low health
-            {
-                rend.material.color = Color.red;  // Change color to red when health is lower than 10
-            }
-            else
-            {
-                rend.material.color = defaultMaterial.color;  // Reset to default color
-            }
             // Check if you want to deal damage to the player
             if (distanceToPlayer <= attackRange && timeSinceLastAttack >= attackDelay)
             {
                 // Deal damage to the player
                 DealDamageToPlayer();
-
                 timeSinceLastAttack = 0f;
             }
             else if (foundPlayer)
             {
-                rend.sharedMaterial = defaultMaterial;
+                rend.sharedMaterial = attackMaterial;
                 enemyMovement.NewLocation();
                 foundPlayer = false;
             }
+
             // Player is within attack range
-            rend.material.color = defaultMaterial.color;  // Reset to default color
             enemyMovement.badGuy.SetDestination(player.position);
             foundPlayer = true;
 
             timeSinceLastAttack += Time.deltaTime;
         }
+    }
 
-        void DealDamageToPlayer()
-        {
-            // Add your code to deal damage to the player here
-            player.GetComponent<HealthBar>().TakeDamage(damageAmount);
-            // Make sure you have a PlayerHealth script on your player object with a TakeDamage method.
-        }
+    // Move this method outside of the Update method
+    void DealDamageToPlayer()
+    {
+        // Add your code to deal damage to the player here
+        player.GetComponent<HealthBar>().TakeDamage(damageAmount);
+        // Make sure you have a PlayerHealth script on your player object with a TakeDamage method.
     }
 }
+
 
 //{
 //    //Variables
@@ -108,7 +100,7 @@ public class EnemyAttack : MonoBehaviour
 //    // Start is called before the first frame update
 //    void Start()
 //    {
-        
+
 //    }
 
 //    // Update is called once per frame

@@ -1,11 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 20;
     private int currentHealth;
-
     public Material lowHealthMaterial;
     Renderer rend;
 
@@ -15,6 +15,7 @@ public class EnemyHealth : MonoBehaviour
         rend = GetComponent<Renderer>();
     
     }
+
 
     public void TakeDamage(int damageAmount)
     {
@@ -28,10 +29,9 @@ public class EnemyHealth : MonoBehaviour
         UpdateMaterial();
 
         // Check if the enemy is defeated
-        if (currentHealth <= 0)
-        {
+
             Die();
-        }
+        
     }
 
     public int GetHealth()
@@ -54,7 +54,6 @@ public class EnemyHealth : MonoBehaviour
             // You can add an else condition here if you want to handle different cases
         }
     }
-
     void Die()
     {
         // Add any death effects or logic here
@@ -62,7 +61,9 @@ public class EnemyHealth : MonoBehaviour
         // For example, you can destroy the enemy GameObject
         Destroy(gameObject);
     }
-}
+ }
+  
+    
 
 
 
