@@ -52,18 +52,19 @@ public class EnemyAttack : MonoBehaviour
                 DealDamageToPlayer();
                 timeSinceLastAttack = 0f;
             }
-            else if (foundPlayer)
-            {
-                rend.sharedMaterial = attackMaterial;
-                enemyMovement.NewLocation();
-                foundPlayer = false;
-            }
+
+            rend.sharedMaterial = attackMaterial;
 
             // Player is within attack range
             enemyMovement.badGuy.SetDestination(player.position);
             foundPlayer = true;
 
             timeSinceLastAttack += Time.deltaTime;
+        } else if(foundPlayer)
+        {
+            rend.sharedMaterial = defaultMaterial;
+            enemyMovement.NewLocation();
+            foundPlayer = false;
         }
     }
 
