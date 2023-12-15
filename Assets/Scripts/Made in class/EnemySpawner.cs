@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public GameObject enemy2;
+    //public GameObject enemy2;
     public int enemyCount = 20;
 
     // Start is called before the first frame update
@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < enemyCount; i++)
         {
-            GameObject enemy = Instantiate(enemy2, transform.position, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
         }
 
     }

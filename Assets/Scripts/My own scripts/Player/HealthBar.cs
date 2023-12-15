@@ -33,6 +33,7 @@ public class HealthBar : MonoBehaviour
         if (health <= 0)
         {
             SceneManager.LoadScene("DeathScreen");
+            Cursor.lockState = CursorLockMode.None; //This unlocks the mouse after dying, now I can push the restart button
         }
        
         health = Mathf.Clamp(health, 0, maxHealth);
